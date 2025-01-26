@@ -17,19 +17,19 @@ const songs = [
     {
         path: 'assets/1.mp3',
         displayName: 'Kaithala Niraikani',
-        cover: 'assets/1.jpg',
+        cover: 'assets/1.JPG',
         artist: 'Mrs. Meenakshi - STS Madurai'
     },
     {
         path: 'assets/2.mp3',
         displayName: 'Umbartharu Thenumani',
-        cover: 'assets/2.jpg',
+        cover: 'assets/2.JPG',
         artist: 'Mrs. Meenakshi - STS Madurai'
     },
     {
         path: 'assets/3.mp3',
         displayName: 'Iravamal Piravamal',
-        cover: 'assets/3.jpg',
+        cover: 'assets/3.JPG',
         artist: 'Mrs. Meenakshi - STS Madurai'
     }
 ]
