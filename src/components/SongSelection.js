@@ -23,7 +23,7 @@ const SongSelection = ({ songs, currentSong, onSongSelect }) => {
     <>
       <button className="song-selection-button" onClick={toggleSongList}>
         <FontAwesomeIcon icon={faMusic} />
-        Songs
+        திருப்புகழ் பாடல்கள்
       </button>
       
       {showSongList && (

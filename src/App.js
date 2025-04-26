@@ -57,7 +57,7 @@ function App() {
       </div>
         <button className="lyrics-toggle" onClick={toggleLyrics}>
         <FontAwesomeIcon icon={showLyrics ? faFileAlt : faFileLines} />
-        {showLyrics ? ' Hide Lyrics' : ' Show Lyrics'}
+        {showLyrics ? 'பாடல் வரிகள்  ✖' : 'பாடல் வரிகள் 🟢'}
       </button>
 
       <SongSelection 
