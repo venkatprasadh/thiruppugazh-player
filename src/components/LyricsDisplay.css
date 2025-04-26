@@ -1,0 +1,136 @@
+.lyrics-container {
+  background-color: rgba(0, 0, 0, 0.65);
+  border-radius: 20px;
+  padding: 15px;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  margin: 0;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.lyrics-title {
+  color: white;
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+
+@media (max-width: 900px) {
+  .lyrics-container {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    margin-top: 0;
+    padding: 12px;
+  }
+  
+  .lyrics-title {
+    font-size: 16px;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+  }
+  
+  .lyrics-line {
+    margin: 6px 0;
+    font-size: 13px;
+  }
+  
+  .lyrics-line.active {
+    font-size: 15px;
+  }
+}
+
+.lyrics-title {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: #fff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 10px;
+  font-weight: 500;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.lyrics-scroll-area {
+  overflow-y: auto;
+  padding-right: 10px;
+  flex-grow: 1;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.5) rgba(0, 0, 0, 0.1);
+}
+
+.lyrics-scroll-area::-webkit-scrollbar {
+  width: 4px;
+}
+
+.lyrics-scroll-area::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.lyrics-scroll-area::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+}
+
+.lyrics-scroll-area::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.lyrics-line {
+  margin: 8px 0;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  transition: all 0.3s ease;
+  text-align: center;
+  line-height: 1.4;
+  padding: 3px 6px;
+  border-radius: 10px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  cursor: pointer;
+}
+
+.lyrics-line:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.lyrics-line.active {
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  background-color: rgba(255, 215, 0, 0.3);
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+  transform: scale(1.03);
+  letter-spacing: 0.03em;
+}
+
+.lyrics-line.interlude {
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.lyrics-line.interlude.active {
+  color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(173, 216, 230, 0.3);
+}
+
+.lyrics-loading, .lyrics-error, .lyrics-empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: rgba(255, 255, 255, 0.7);
+  font-style: italic;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.lyrics-error {
+  color: #ff9999;
+}
