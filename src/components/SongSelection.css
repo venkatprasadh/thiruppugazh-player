@@ -32,9 +32,12 @@
   bottom: 80px;
   left: 20px;
   width: 300px;
+  max-width: 85vw; /* Limit width based on viewport width */
   max-height: 400px;
+  max-height: 70vh; /* Limit height based on viewport height */
   background-color: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-radius: 15px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   z-index: 100;
@@ -124,4 +127,76 @@
   opacity: 0;
   transform: scale(0.9);
   transition: opacity 300ms, transform 300ms;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 480px) {
+  .control-buttons-container .song-selection-button {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    padding: 8px 15px;
+    font-size: 12px;
+    margin: 0;
+    display: flex;
+  }
+  
+  .song-list-container {
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 20px);
+    max-width: 350px;
+  }
+  
+  .song-list-header {
+    padding: 12px 15px;
+    font-size: 15px;
+  }
+  
+  .song-list li {
+    padding: 10px 15px;
+  }
+  
+  .song-name {
+    font-size: 14px;
+  }
+  
+  .song-artist {
+    font-size: 11px;
+  }
+  
+  .song-list-container {
+    transform-origin: bottom center;
+  }
+}
+
+/* Ensure song list is properly positioned on different screen sizes */
+@media (min-width: 481px) and (max-width: 768px) {
+  .song-list-container {
+    bottom: 70px;
+    max-height: 60vh;
+  }
+}
+
+@media (max-height: 600px) {
+  .song-list-container {
+    bottom: 50px;
+    max-height: 50vh;
+  }
+  
+  .song-list-header {
+    padding: 10px;
+  }
+  
+  .song-list li {
+    padding: 8px 15px;
+  }
+}
+
+@media (max-width: 480px) and (max-height: 750px) {
+  /* Even smaller screens like older phones */
+  .song-list-container {
+    max-height: 55vh;
+  }
 }

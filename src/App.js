@@ -3,7 +3,7 @@ import MusicPlayer from './components/MusicPlayer';
 import LyricsDisplay from './components/LyricsDisplay';
 import SongSelection from './components/SongSelection';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileLines, faFileAlt } from '@fortawesome/free-solid-svg-icons';
+import { faFileLines, faFileAlt, faMusic } from '@fortawesome/free-solid-svg-icons';
 import { getAllSongs } from './services/songService';
 import './App.css';
 
@@ -11,7 +11,7 @@ function App() {
   const [songs] = useState(getAllSongs() || []);
   const [currentSong, setCurrentSong] = useState(songs.length > 0 ? songs[0] : null);
   const [currentTime, setCurrentTime] = useState(0);
-  const [showLyrics, setShowLyrics] = useState(true);
+  const [showLyrics, setShowLyrics] = useState(window.innerWidth > 480); // Default to hidden on mobile
   const playerRef = useRef(null);
     // Handler for updating current song and time from MusicPlayer
   const handleSongProgress = (song, time) => {
@@ -52,10 +52,9 @@ function App() {
                 />
               )}
             </div>
-          )}
-        </div>
-      </div>
-        <button className="lyrics-toggle" onClick={toggleLyrics}>
+          )}        </div>
+      </div>      {/* Regular fixed buttons for desktop */}
+      <button className="lyrics-toggle" onClick={toggleLyrics}>
         <FontAwesomeIcon icon={showLyrics ? faFileAlt : faFileLines} />
         {showLyrics ? 'பாடல் வரிகள்  ✖' : 'பாடல் வரிகள் 🟢'}
       </button>
@@ -69,6 +68,24 @@ function App() {
           }
         }}
       />
+      
+      {/* Mobile control buttons container */}
+      <div className="control-buttons-container">
+        <button className="lyrics-toggle" onClick={toggleLyrics}>
+          <FontAwesomeIcon icon={showLyrics ? faFileAlt : faFileLines} />
+          {showLyrics ? 'பாடல் வரிகள்  ✖' : 'பாடல் வரிகள் 🟢'}
+        </button>
+
+        <button className="song-selection-button" onClick={() => {
+          const songSelectElement = document.querySelector('.song-selection-wrapper .song-selection-button');
+          if (songSelectElement) {
+            songSelectElement.click();
+          }
+        }}>
+          <FontAwesomeIcon icon={faMusic} />
+          திருப்புகழ் பாடல்கள்
+        </button>
+      </div>
     </div>
   );
 }

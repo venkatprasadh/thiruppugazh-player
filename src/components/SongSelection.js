@@ -17,10 +17,8 @@ const SongSelection = ({ songs, currentSong, onSongSelect }) => {
       onSongSelect(song);
       setShowSongList(false); // Hide the list after selection
     }
-  };
-  
-  return (
-    <>
+  };    return (
+    <div className="song-selection-wrapper">
       <button className="song-selection-button" onClick={toggleSongList}>
         <FontAwesomeIcon icon={faMusic} />
         திருப்புகழ் பாடல்கள்
@@ -50,7 +48,7 @@ const SongSelection = ({ songs, currentSong, onSongSelect }) => {
           </ul>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

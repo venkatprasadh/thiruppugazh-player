@@ -1,3 +1,13 @@
+* {
+  box-sizing: border-box;
+}
+
+button:focus,
+a:focus {
+  outline: 2px solid rgba(255, 215, 0, 0.5);
+  outline-offset: 2px;
+}
+
 .app-container {
   width: 100%;
   min-height: 100vh;
@@ -5,6 +15,8 @@
   flex-direction: column;
   align-items: center;
   position: relative;
+  padding: 0 10px;
+  box-sizing: border-box;
 }
 
 .app {
@@ -14,20 +26,25 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 80px 20px;
+  padding: 40px 10px;
+  box-sizing: border-box;
 }
 
 .player-with-lyrics {
   position: relative;
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
 }
 
 .lyrics-overlay {
   position: absolute;
-  top: -50px; /* Match the top: -50px of the player-img */
-  left: 50px; /* Match the left: 50px of the player-img */
-  width: 300px; /* Match the width of the album art */
-  height: 300px; /* Match the height of the album art */
+  top: -50px; /* Match the top of the player-img */
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 75%; /* Relative to the container width */
+  height: auto; /* Will be determined by content */
+  aspect-ratio: 1/1; /* Maintain square shape */
   z-index: 10;
 }
 
@@ -80,6 +97,90 @@
   }
 }
 
+/* Responsive styles for mobile devices */
+@media (max-width: 480px) {
+  .app-container {
+    padding-bottom: 70px; /* Add space for fixed buttons at bottom */
+  }
+
+  .player-with-lyrics {
+    width: 90%;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Keep lyrics overlay on top of album art like desktop */
+  .lyrics-overlay {
+    position: absolute;
+    width: 75%;
+    aspect-ratio: 1/1; /* Keep it square */
+    top: -50px;
+  }
+
+  .app {
+    padding: 10px 5px;
+    min-height: auto;
+  }
+
+  /* Hide the normal fixed buttons on mobile */
+  .lyrics-toggle:not(.control-buttons-container .lyrics-toggle) {
+    display: none;
+  }
+
+  .song-selection-wrapper > .song-selection-button {
+    display: none;
+  }
+  /* Adjust the buttons in the control container for mobile */
+  .control-buttons-container .lyrics-toggle,
+  .control-buttons-container .song-selection-button {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    left: auto;
+    font-size: 12px;
+    padding: 10px 18px;  /* Larger touch target */
+    margin: 0;
+    min-height: 44px;    /* Apple's recommended minimum touch target height */
+    display: flex;
+    align-items: center;
+  }
+  /* Player controls adjustments */
+  .player-controls {
+    top: -5px;
+    width: 70%;
+  }
+  
+  .player-controls svg {
+    font-size: 24px;
+    margin: 0 12px; /* More spacing for touch targets */
+    padding: 8px;  /* Larger touch area */
+  }
+  
+  .play-button {
+    font-size: 34px !important;
+    padding: 10px; /* Larger touch area for the main play button */
+  }
+
+  /* Progress bar adjustments */
+  .player-progress {
+    margin: 15px auto;
+    width: 85%;
+  }
+
+  h2 {
+    font-size: 18px;
+    padding: 0 10px;
+  }
+
+  h3 {
+    font-size: 16px;
+    padding: 0 10px;
+  }
+}
+
 .background {
   position: fixed;
   width: 200%;
@@ -105,11 +206,15 @@
 
 .container {
   background-color: #e7e7e7;
-  height: 500px;
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 4/5; /* Maintains proportion even when resizing */
+  position: relative;
   border-radius: 20px;
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
   transition: all 0.5s ease;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .container:hover {
@@ -117,16 +222,18 @@
 }
 
 .player-img {
-  width: 300px;
-  height: 300px;
+  width: 75%;
+  aspect-ratio: 1/1; /* Square shape */
   position: relative;
   top: -50px;
-  left: 50px;
+  margin: 0 auto;
+  display: block;
 }
 
 .player-img img {
   object-fit: cover;
   border-radius: 20px;
+  position: relative;
   height: 0;
   width: 0;
   opacity: 0;
@@ -162,9 +269,11 @@ h3 {
   background-color: #fff;
   border-radius: 5px;
   cursor: pointer;
-  margin: 40px 20px 35px;
+  margin: 30px auto;
   height: 6px;
   width: 90%;
+  max-width: 350px;
+  display: block;
 }
 
 .progress {
@@ -180,21 +289,27 @@ h3 {
   top: -25px;
   display: flex;
   justify-content: space-between;
+  width: 90%;
+  max-width: 350px;
+  margin: 0 auto;
+  padding: 0 5px;
 }
 
 .player-controls {
   position: relative;
   top: -15px;
-  left: 120px;
-  width: 200px;
+  width: 80%;
+  max-width: 220px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .player-controls svg {
   font-size: 30px;
   color: #666;
-  margin-right: 30px;
+  margin: 0 10px;
   cursor: pointer;
   user-select: none;
   transition: all 0.3s ease;
@@ -208,4 +323,109 @@ h3 {
   font-size: 44px !important;
   position: relative;
   top: 3px;
+}
+
+.control-buttons-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: rgba(231, 231, 231, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 12px 0;
+  z-index: 100;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Desktop styles - hide the container */
+@media (min-width: 481px) {
+  .control-buttons-container {
+    display: none;
+  }
+}
+
+/* Make sure all buttons are properly styled */
+button {
+  font-family: 'Ubuntu', sans-serif;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+/* Add responsive font sizing */
+html {
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+/* Additional responsive breakpoints */
+@media (min-width: 481px) and (max-width: 768px) {
+  /* Tablet styles */
+  .player-with-lyrics {
+    width: 90%;
+    max-width: 450px;
+  }
+
+  .player-img {
+    width: 80%;
+  }
+
+  .lyrics-overlay {
+    width: 80%;
+  }
+
+  .player-controls {
+    width: 85%;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  h3 {
+    font-size: 17px;
+  }
+}
+
+/* Small height screens */
+@media (max-height: 600px) {
+  .app {
+    padding: 20px 10px;
+  }
+
+  .container {
+    aspect-ratio: 4/4.5; /* Slightly less tall for small height screens */
+  }
+
+  .lyrics-toggle,
+  .song-selection-button {
+    bottom: 10px;
+    font-size: 12px;
+    padding: 8px 15px;
+  }
+}
+
+/* Extra large screens */
+@media (min-width: 1200px) {
+  .player-with-lyrics {
+    max-width: 500px;
+  }
 }
