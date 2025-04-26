@@ -40,7 +40,9 @@ function LyricsDisplay({ currentSong, currentTime, onSeekToTime }) {
       console.log('Active lyric changed to index:', currentLyric.index, 'Text:', currentLyric.text);
       setActiveLyricIndex(currentLyric.index);
     }
-  }, [currentTime, lyrics, activeLyricIndex]);  // Scroll to active lyric
+  }, [currentTime, lyrics, activeLyricIndex]);  
+  
+  // Scroll to active lyric
   useEffect(() => {
     // Only attempt to scroll if we have a valid active lyric index
     if (activeLyricIndex < 0) return;
@@ -55,28 +57,36 @@ function LyricsDisplay({ currentSong, currentTime, onSeekToTime }) {
         // Get the top position of the active element relative to the scroll container
         const activeElementTop = activeElement.offsetTop;
         
-        // Add some padding at the top for better visibility
-        const topPadding = 20;
+        // Get all lyric lines
+        const lyricsLines = document.querySelectorAll('.lyrics-line');
+        
+        // Calculate line height for a typical line
+        const lineHeight = activeElement.offsetHeight;
+        
+        // Calculate offset to position this line as the second visible line
+        // We want one line before this one to be visible
+        const topOffset = lineHeight + 30; // One line height + some padding
         
         // Log for debugging
-        console.log('Scrolling to position:', activeElementTop - topPadding);
+        console.log('Scrolling to show active lyric as second line:', activeElementTop - topOffset);
         console.log('Active element:', activeElement);
-        console.log('Scroll container:', scrollContainer);
-          // Try two different scroll methods for maximum compatibility
+        console.log('Line height:', lineHeight);
+          
+        // Try two different scroll methods for maximum compatibility
         try {
           // Method 1: Use scrollTo with smooth behavior
           scrollContainer.scrollTo({
-            top: activeElementTop - topPadding,
+            top: activeElementTop - topOffset,
             behavior: 'smooth'
           });
           
           // Method 2: Direct property assignment as fallback
           // Some browsers might not support scrollTo with options
-          scrollContainer.scrollTop = activeElementTop - topPadding;
+          scrollContainer.scrollTop = activeElementTop - topOffset;
         } catch (err) {
           // Fallback if scrollTo fails
           console.error('Error during scroll:', err);
-          scrollContainer.scrollTop = activeElementTop - topPadding;
+          scrollContainer.scrollTop = activeElementTop - topOffset;
         }
       } else {
         console.log('Refs not available for scrolling:', {
