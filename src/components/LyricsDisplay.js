@@ -7,7 +7,7 @@ function LyricsDisplay({ currentSong, currentTime, onSeekToTime }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [activeLyricIndex, setActiveLyricIndex] = useState(-1);
-  const lyricsContainerRef = useRef(null);
+  const scrollAreaRef = useRef(null); // Changed to reference the actual scrollable area
   const activeLyricRef = useRef(null);
     // Load lyrics when the song changes
   useEffect(() => {
@@ -31,33 +31,64 @@ function LyricsDisplay({ currentSong, currentTime, onSeekToTime }) {
     
     fetchLyrics();
   }, [currentSong]);
-  
-  // Update active lyric based on current time
+    // Update active lyric based on current time
   useEffect(() => {
     if (!lyrics || lyrics.length === 0) return;
     
     const currentLyric = getCurrentLyric(lyrics, currentTime);
     if (currentLyric && currentLyric.index !== activeLyricIndex) {
+      console.log('Active lyric changed to index:', currentLyric.index, 'Text:', currentLyric.text);
       setActiveLyricIndex(currentLyric.index);
     }
-  }, [currentTime, lyrics, activeLyricIndex]);
-    // Scroll to active lyric
+  }, [currentTime, lyrics, activeLyricIndex]);  // Scroll to active lyric
   useEffect(() => {
-    if (activeLyricRef.current && lyricsContainerRef.current) {
-      const container = lyricsContainerRef.current;
-      const activeElement = activeLyricRef.current;
-      
-      const activeElementTop = activeElement.offsetTop;
-      
-      // Scroll the container so that the active lyric is at the top with a small padding
-      const topPadding = 20; // Add some padding at the top for better visibility
-      
-      // Smooth scroll to the position
-      container.scrollTo({
-        top: activeElementTop - topPadding,
-        behavior: 'smooth'
-      });
-    }
+    // Only attempt to scroll if we have a valid active lyric index
+    if (activeLyricIndex < 0) return;
+    
+    // Use setTimeout to ensure the DOM has updated before trying to scroll
+    const scrollTimeout = setTimeout(() => {
+      // Check if refs are available
+      if (activeLyricRef.current && scrollAreaRef.current) {
+        const scrollContainer = scrollAreaRef.current;
+        const activeElement = activeLyricRef.current;
+        
+        // Get the top position of the active element relative to the scroll container
+        const activeElementTop = activeElement.offsetTop;
+        
+        // Add some padding at the top for better visibility
+        const topPadding = 20;
+        
+        // Log for debugging
+        console.log('Scrolling to position:', activeElementTop - topPadding);
+        console.log('Active element:', activeElement);
+        console.log('Scroll container:', scrollContainer);
+          // Try two different scroll methods for maximum compatibility
+        try {
+          // Method 1: Use scrollTo with smooth behavior
+          scrollContainer.scrollTo({
+            top: activeElementTop - topPadding,
+            behavior: 'smooth'
+          });
+          
+          // Method 2: Direct property assignment as fallback
+          // Some browsers might not support scrollTo with options
+          scrollContainer.scrollTop = activeElementTop - topPadding;
+        } catch (err) {
+          // Fallback if scrollTo fails
+          console.error('Error during scroll:', err);
+          scrollContainer.scrollTop = activeElementTop - topPadding;
+        }
+      } else {
+        console.log('Refs not available for scrolling:', {
+          activeLyricRef: activeLyricRef.current,
+          scrollAreaRef: scrollAreaRef.current,
+          activeLyricIndex
+        });
+      }
+    }, 50); // Small delay to ensure DOM update
+    
+    // Clean up timeout
+    return () => clearTimeout(scrollTimeout);
   }, [activeLyricIndex]);
   
   // Render loading state
@@ -92,12 +123,10 @@ function LyricsDisplay({ currentSong, currentTime, onSeekToTime }) {
       onSeekToTime(time);
     }
   };
-
   // Render lyrics
   return (
-    <div className="lyrics-container" ref={lyricsContainerRef}>
-      <h3 className="lyrics-title">{currentSong?.displayName}</h3>
-      <div className="lyrics-scroll-area">
+    <div className="lyrics-container">
+      <div className="lyrics-scroll-area" ref={scrollAreaRef}>
         {lyrics.map((lyric, index) => {
           // Check if the line contains dots (indicating a musical interlude)
           const hasDots = lyric.text.includes('......');
