@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import MusicPlayer from './components/MusicPlayer';
 import LyricsDisplay from './components/LyricsDisplay';
+import SongSelection from './components/SongSelection';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileLines, faFileAlt } from '@fortawesome/free-solid-svg-icons';
 import { getAllSongs } from './services/songService';
@@ -54,11 +55,20 @@ function App() {
           )}
         </div>
       </div>
-      
-      <button className="lyrics-toggle" onClick={toggleLyrics}>
+        <button className="lyrics-toggle" onClick={toggleLyrics}>
         <FontAwesomeIcon icon={showLyrics ? faFileAlt : faFileLines} />
         {showLyrics ? ' Hide Lyrics' : ' Show Lyrics'}
       </button>
+
+      <SongSelection 
+        songs={songs} 
+        currentSong={currentSong}
+        onSongSelect={(song) => {
+          if (playerRef.current) {
+            playerRef.current.selectSong(song);
+          }
+        }}
+      />
     </div>
   );
 }

@@ -18,12 +18,26 @@ const MusicPlayer = forwardRef(({ songs, onSongProgress }, ref) => {
   // Refs
   const audioRef = useRef(null);
   const progressBarRef = useRef(null);
-
-  // Expose seekToTime method to parent component
+  // Expose methods to parent component
   useImperativeHandle(ref, () => ({
     seekToTime: (time) => {
       if (audioRef.current) {
         audioRef.current.currentTime = time;
+      }
+    },
+    selectSong: (song) => {
+      // Find the index of the selected song
+      const selectedIndex = songList.findIndex(s => s.id === song.id);
+      if (selectedIndex !== -1) {
+        setMusicIndex(selectedIndex);
+        loadMusic(song);
+        
+        // If music is already playing, continue playing the new song
+        if (isPlaying && audioRef.current) {
+          setTimeout(() => {
+            audioRef.current.play();
+          }, 100);
+        }
       }
     }
   }));

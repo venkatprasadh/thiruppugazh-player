@@ -1,11 +1,12 @@
 // Collection of songs for the music player
+const default_singer = 'Mrs. Meenakshi'; // Default artist name
 const songs = [
   {
     id: 1,
     path: process.env.PUBLIC_URL + '/assets/media/songs/Kaithala_Niraikani.mp3',
     displayName: 'Kaithala Niraikani',
     cover: process.env.PUBLIC_URL + '/assets/media/album_cover/murugar.JPG',
-    artist: 'Mrs. Meenakshi - STS Madurai',
+    artist: default_singer,
     lyricsFile: process.env.PUBLIC_URL + '/assets/media/lyrics/Kaithala_Niraikani.lrc'
   },
   {
@@ -13,7 +14,7 @@ const songs = [
     path: process.env.PUBLIC_URL + '/assets/media/songs/Umbartharu_Thenumani.mp3',
     displayName: 'Umbartharu Thenumani',
     cover: process.env.PUBLIC_URL + '/assets/media/album_cover/murugar.JPG',
-    artist: 'Mrs. Meenakshi - STS Madurai',
+    artist: default_singer,
     lyricsFile: process.env.PUBLIC_URL + '/assets/media/lyrics/Umbartharu_Thenumani.lrc'
   },
   {
@@ -21,7 +22,7 @@ const songs = [
     path: process.env.PUBLIC_URL + '/assets/media/songs/Iravamal_Piravamal.mp3',
     displayName: 'Iravamal Piravamal',
     cover: process.env.PUBLIC_URL + '/assets/media/album_cover/murugar.JPG',
-    artist: 'Mrs. Meenakshi - STS Madurai',
+    artist: default_singer,
     lyricsFile: process.env.PUBLIC_URL + '/assets/media/lyrics/Iravamal_Piravamal.lrc'
   }
 ];

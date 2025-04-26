@@ -65,24 +65,41 @@
   padding-bottom: 150px; /* Add padding at the bottom to allow last lyrics to be scrolled to top */
   flex-grow: 1;
   scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.5) rgba(0, 0, 0, 0.1);
+  scrollbar-color: transparent transparent; /* Hide scrollbar by default (Firefox) */
+  transition: scrollbar-color 0.3s ease;
 }
 
+/* Hide scrollbar by default (Chrome, Safari, Edge) */
 .lyrics-scroll-area::-webkit-scrollbar {
   width: 4px;
+  background: transparent;
 }
 
 .lyrics-scroll-area::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.1);
+  background: transparent;
   border-radius: 10px;
 }
 
 .lyrics-scroll-area::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.5);
+  background: transparent;
   border-radius: 10px;
+  transition: background 0.3s ease;
 }
 
-.lyrics-scroll-area::-webkit-scrollbar-thumb:hover {
+/* Show scrollbar when hovering over the scroll area */
+.lyrics-scroll-area:hover {
+  scrollbar-color: rgba(255, 255, 255, 0.5) rgba(0, 0, 0, 0.1); /* Show scrollbar on hover (Firefox) */
+}
+
+.lyrics-scroll-area:hover::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.5); /* Show scrollbar on hover (Chrome, Safari, Edge) */
+}
+
+.lyrics-scroll-area:hover::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.lyrics-scroll-area:hover::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.7);
 }
 
@@ -97,10 +114,12 @@
   border-radius: 10px;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
   cursor: pointer;
+  width: calc(100% - 12px); /* Ensure consistent width with the active line */
 }
 
 .lyrics-line:hover {
   background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 10px; /* Ensure border-radius is respected on hover */
 }
 
 .lyrics-line.active {
@@ -109,11 +128,13 @@
   font-size: 16px;
   background-color: rgba(255, 215, 0, 0.3);
   box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
-  transform: scale(1.03);
+  transform: none; /* Remove scale transform that was causing border-radius issues */
   letter-spacing: 0.03em;
   border-top: 2px solid rgba(255, 255, 255, 0.4);
-  padding-top: 6px;
+  padding: 6px 6px 3px 6px; /* Adjust padding to maintain height but fix border radius */
   margin-top: 10px;
+  width: calc(100% - 12px); /* Ensure it doesn't overflow its container */
+  border-radius: 10px; /* Ensure border-radius is explicitly set */
 }
 
 .lyrics-line.interlude {
