@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { getLyricsBySong, getCurrentLyric } from '../services/lyricsService';
 import './LyricsDisplay.css';
 
-function LyricsDisplay({ currentSong, currentTime }) {
+function LyricsDisplay({ currentSong, currentTime, onSeekToTime }) {
   const [lyrics, setLyrics] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -41,19 +41,22 @@ function LyricsDisplay({ currentSong, currentTime }) {
       setActiveLyricIndex(currentLyric.index);
     }
   }, [currentTime, lyrics, activeLyricIndex]);
-  
-  // Scroll to active lyric
+    // Scroll to active lyric
   useEffect(() => {
     if (activeLyricRef.current && lyricsContainerRef.current) {
       const container = lyricsContainerRef.current;
       const activeElement = activeLyricRef.current;
       
-      const containerHeight = container.clientHeight;
       const activeElementTop = activeElement.offsetTop;
-      const activeElementHeight = activeElement.clientHeight;
       
-      // Scroll the container so that the active lyric is centered
-      container.scrollTop = activeElementTop - containerHeight / 2 + activeElementHeight / 2;
+      // Scroll the container so that the active lyric is at the top with a small padding
+      const topPadding = 20; // Add some padding at the top for better visibility
+      
+      // Smooth scroll to the position
+      container.scrollTo({
+        top: activeElementTop - topPadding,
+        behavior: 'smooth'
+      });
     }
   }, [activeLyricIndex]);
   
@@ -83,7 +86,14 @@ function LyricsDisplay({ currentSong, currentTime }) {
       </div>
     );
   }
-    // Render lyrics
+  // Handle click on a lyric line to seek to that timestamp
+  const handleLyricClick = (time) => {
+    if (onSeekToTime) {
+      onSeekToTime(time);
+    }
+  };
+
+  // Render lyrics
   return (
     <div className="lyrics-container" ref={lyricsContainerRef}>
       <h3 className="lyrics-title">{currentSong?.displayName}</h3>
@@ -102,6 +112,7 @@ function LyricsDisplay({ currentSong, currentTime }) {
               key={index}
               ref={index === activeLyricIndex ? activeLyricRef : null}
               className={`lyrics-line ${index === activeLyricIndex ? 'active' : ''} ${hasDots ? 'interlude' : ''}`}
+              onClick={() => handleLyricClick(lyric.time)}
             >
               {formattedText}
             </div>
