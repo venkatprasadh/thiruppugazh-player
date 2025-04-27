@@ -306,7 +306,7 @@ function LyricsDisplay({ currentSong, currentTime, onSeekToTime }) {
           
           // Replace multiple dots with a musical interlude symbol
           const formattedText = hasDots 
-            ? lyric.text.replace('......', '♪♫♪')
+            ? lyric.text.replace('......', '')
             : lyric.text;
             
           return (            <div
