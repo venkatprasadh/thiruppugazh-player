@@ -11,6 +11,9 @@
 # production
 /build
 
+#old files
+/old-player-backup
+
 # misc
 .DS_Store
 .env.local

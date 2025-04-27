@@ -18,7 +18,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -39,8 +41,11 @@
     ]
   },
   "description": "A React-based music player for Thiruppugazh devotional songs that can be hosted on GitHub Pages.",
+  "homepage": "https://venkatprasadh.github.io/thiruppugazh-player",
   "main": "index.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "gh-pages": "^6.1.1"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC"

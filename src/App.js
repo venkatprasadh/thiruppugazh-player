@@ -54,7 +54,7 @@ function App() {
           )}</div>      </div>      {/* Regular fixed buttons for desktop */}
       <button className="lyrics-toggle" onClick={toggleLyrics}>
         <FontAwesomeIcon icon={showLyrics ? faFileAlt : faFileLines} />
-        {showLyrics ? 'பாடல் வரிகள்  ✖' : 'பாடல் வரிகள் 🟢'}
+        {showLyrics ? 'பாடல் வரிகள்  ✖' : 'பாடல் வரிகள் 🟢 '}
       </button>
 
       <SongSelection 
