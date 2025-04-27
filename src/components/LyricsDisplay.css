@@ -52,10 +52,17 @@
 @media (max-width: 480px) {
   .lyrics-container {
     height: 100%;
+    width: 100%;
     min-height: 0; /* Let it be determined by parent */
     padding: 10px;
     margin: 0;
-    border-radius: 15px;
+    border-radius: 20px; /* Match album art border radius */
+    margin-top: 0; /* Ensure no extra margin pushing it down */
+    position: absolute;
+    top: 40px; /* Adjust to prevent clipping with the top of the screen */
+    left: 0;
+    right: 0;
+    bottom: 0;
   }
   
   .lyrics-title {
