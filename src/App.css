@@ -446,3 +446,61 @@ html {
     max-width: 500px;
   }
 }
+
+/* Report Issues button for desktop */
+.report-issues-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: rgba(231, 231, 231, 0.8);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  z-index: 100;
+  color: #555;
+  text-decoration: none;
+}
+
+.report-issues-button:hover {
+  background-color: #d9d9d9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.report-issues-button:active {
+  transform: translateY(0);
+}
+
+/* Hide desktop report button on mobile */
+@media (max-width: 480px) {
+  .report-issues-button {
+    display: none;
+  }
+}
+
+/* Report Issues button for mobile */
+.report-issues-button-mobile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background-color: transparent;
+  color: #555;
+  border-radius: 50%;
+  text-decoration: none;
+}
+
+/* Hide mobile report button on desktop */
+@media (min-width: 481px) {
+  .report-issues-button-mobile {
+    display: none;
+  }
+}

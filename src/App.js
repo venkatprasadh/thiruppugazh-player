@@ -3,7 +3,7 @@ import MusicPlayer from './components/MusicPlayer';
 import LyricsDisplay from './components/LyricsDisplay';
 import SongSelection from './components/SongSelection';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileLines, faFileAlt, faMusic } from '@fortawesome/free-solid-svg-icons';
+import { faFileLines, faFileAlt, faMusic, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { getAllSongs } from './services/songService';
 import './App.css';
 
@@ -41,8 +41,7 @@ function App() {
             songs={songs} 
             onSongProgress={handleSongProgress}
           />
-          
-          {showLyrics && (
+            {showLyrics && (
             <div className="lyrics-overlay">
               {currentSong && (
                 <LyricsDisplay 
@@ -52,8 +51,7 @@ function App() {
                 />
               )}
             </div>
-          )}        </div>
-      </div>      {/* Regular fixed buttons for desktop */}
+          )}</div>      </div>      {/* Regular fixed buttons for desktop */}
       <button className="lyrics-toggle" onClick={toggleLyrics}>
         <FontAwesomeIcon icon={showLyrics ? faFileAlt : faFileLines} />
         {showLyrics ? 'பாடல் வரிகள்  ✖' : 'பாடல் வரிகள் 🟢'}
@@ -69,14 +67,23 @@ function App() {
         }}
       />
       
+      {/* Report Issues button for desktop */}
+      <a 
+        className="report-issues-button" 
+        href="https://github.com/venkatprasadh/thiruppugazh-player/issues" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        title="Report Issues"
+      >
+        <FontAwesomeIcon icon={faInfoCircle} />
+      </a>
+      
       {/* Mobile control buttons container */}
       <div className="control-buttons-container">
         <button className="lyrics-toggle" onClick={toggleLyrics}>
           <FontAwesomeIcon icon={showLyrics ? faFileAlt : faFileLines} />
           {showLyrics ? 'பாடல் வரிகள்  ✖' : 'பாடல் வரிகள் 🟢'}
-        </button>
-
-        <button className="song-selection-button" onClick={() => {
+        </button>        <button className="song-selection-button" onClick={() => {
           const songSelectElement = document.querySelector('.song-selection-wrapper .song-selection-button');
           if (songSelectElement) {
             songSelectElement.click();
@@ -85,6 +92,17 @@ function App() {
           <FontAwesomeIcon icon={faMusic} />
           திருப்புகழ் பாடல்கள்
         </button>
+        
+        {/* Report Issues button for mobile */}
+        <a 
+          className="report-issues-button-mobile" 
+          href="https://github.com/venkatprasadh/thiruppugazh-player/issues" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          title="Report Issues"
+        >
+          <FontAwesomeIcon icon={faInfoCircle} />
+        </a>
       </div>
     </div>
   );
