@@ -79,7 +79,7 @@ const songs = [
     displayName: 'Marukkulaaviya',
     cover: process.env.PUBLIC_URL + '/assets/media/album_cover/murugar.JPG',
     artist: default_singer,
-    lyricsFile: process.env.PUBLIC_URL + '/assets/media/lyrics/Iravamal_Piravamal.lrc'
+    lyricsFile: process.env.PUBLIC_URL + '/assets/media/lyrics/Marukkulaaviya.lrc'
   },
   {
     id: 11,
