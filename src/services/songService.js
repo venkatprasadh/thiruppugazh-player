@@ -88,7 +88,24 @@ const songs = [
     cover: process.env.PUBLIC_URL + '/assets/media/album_cover/murugar.JPG',
     artist: default_singer,
     lyricsFile: process.env.PUBLIC_URL + '/assets/media/lyrics/Parimalakalapasu.lrc'
-  }
+  },
+  {
+    id: 12,
+    path: process.env.PUBLIC_URL + '/assets/media/songs/Kadalaipori_Avarai.mp3',
+    displayName: 'Kadalaipori Avarai',
+    cover: process.env.PUBLIC_URL + '/assets/media/album_cover/murugar.JPG',
+    artist: default_singer,
+    lyricsFile: process.env.PUBLIC_URL + '/assets/media/lyrics/Kadalaipori_Avarai.lrc'
+  },
+  {
+    id: 13,
+    path: process.env.PUBLIC_URL + '/assets/media/songs/Sangaithan.mp3',
+    displayName: 'Sangaithan',
+    cover: process.env.PUBLIC_URL + '/assets/media/album_cover/murugar.JPG',
+    artist: default_singer,
+    lyricsFile: process.env.PUBLIC_URL + '/assets/media/lyrics/Sangaithan.lrc'
+  },
+
 ];
 
 // Function to get all songs
